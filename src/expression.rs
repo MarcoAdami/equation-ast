@@ -36,6 +36,9 @@ impl fmt::Display for Expression {
 impl Expression {
     pub fn parse_from_prefix_to_expression(tokens: &mut Vec<&str>)->Expression{
        let token = tokens.pop().unwrap();
+       if token==""{
+            return Expression::None;
+       }
        if token == "+" || token == "-" || token == "*" || token == "/" || token == "^"{
             return Expression::Operation(token.chars().next().unwrap(), Box::new(Expression::parse_from_prefix_to_expression(tokens)), Box::new(Expression::parse_from_prefix_to_expression(tokens)));
        }
